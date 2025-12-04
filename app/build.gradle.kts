@@ -11,15 +11,20 @@ val localProps = Properties().apply {
     if (f.exists()) f.inputStream().use { load(it) }
 }
 val zhipuApiKey = localProps.getProperty("ZHIPU_API_KEY") ?: ""
+val siliconflowApiKey = localProps.getProperty("SILICONFLOW_API_KEY") ?: ""
+val serverBase = localProps.getProperty("SERVER_BASE") ?: "http://127.0.0.1:8080"
+val devReturnCode = (System.getenv("APP_DEVRETURNCODE") ?: localProps.getProperty("APP_DEVRETURNCODE") ?: "false").toBoolean()
+
+buildDir = file("build2")
 
 android {
-    namespace = "com.example.aichat_10"
+    namespace = "com.example.aichat10"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.aichat_10"
+        applicationId = "com.example.aichat10"
         minSdk = 30
         targetSdk = 36
         versionCode = 1
@@ -27,6 +32,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "ZHIPU_API_KEY", "\"$zhipuApiKey\"")
+        buildConfigField("String", "SILICONFLOW_API_KEY", "\"$siliconflowApiKey\"")
+        buildConfigField("String", "SERVER_BASE", "\"$serverBase\"")
+        buildConfigField("boolean", "DEV_RETURN_CODE", "$devReturnCode")
     }
 
     buildTypes {
@@ -75,12 +83,6 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-}
-
-tasks.matching { it.name == "processDebugResources" }.configureEach {
-    doFirst {
-        project.delete(layout.buildDirectory.dir("intermediates/compile_and_runtime_not_namespaced_r_class_jar").get().asFile)
-    }
 }
 
 tasks.register("cleanBuildDebug") {

@@ -1,4 +1,4 @@
-package com.example.aichat_10.ui.theme
+package com.example.aichat10.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

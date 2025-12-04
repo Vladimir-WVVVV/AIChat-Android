@@ -1,4 +1,4 @@
-package com.example.aichat_10.service
+package com.example.aichat10.service
 
 /**
  * 对话规则引擎
@@ -83,4 +83,3 @@ object ChatRuleEngine {
         return "你好！我是AI助手，很高兴为你服务。你可以问我任何问题，或者输入\"帮助\"查看我能做什么。"
     }
 }
-

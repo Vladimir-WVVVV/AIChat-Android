@@ -1,4 +1,4 @@
-package com.example.aichat_10
+package com.example.aichat10
 
 import org.junit.Test
 
